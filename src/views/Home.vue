@@ -12,7 +12,16 @@
     </div>
 
     <div class="search-box">
+      
       <div class="search-wrapper">
+        <el-select v-model="select3" @change="getInfo" slot="prepend" class="area-select" placeholder="地区">
+            <el-option
+              v-for="item in area_options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
         <el-input placeholder="请输入分数/排名" v-model="keyword" class="input-with-select">
           <el-select v-model="select1" slot="prepend" placeholder="科类">
             <el-option
@@ -25,14 +34,6 @@
           <el-select v-model="select2" slot="prepend" placeholder="批次">
             <el-option
               v-for="item in pi_options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            ></el-option>
-          </el-select>
-          <el-select v-model="select3" slot="prepend" placeholder="地区">
-            <el-option
-              v-for="item in area_options"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -94,9 +95,9 @@ export default {
       ke_options: [],
       pi_options: [],
       area_options: [],
-      select1: '普通文科',
-      select2: '本科一批',
-      select3: '内蒙古'
+      select1: '科类',
+      select2: '批次',
+      select3: '湖北'
     };
   },
   methods: {
@@ -116,6 +117,7 @@ export default {
         data: {
           pi: this.select2,
           ke: this.select1,
+          area: this.select3,
           score: parseInt(this.keyword),
           pageSize: 10,
           pageNum: this.curPage,
@@ -145,6 +147,9 @@ export default {
       this.$api({
         url: "getinfo",
         method: "post",
+        data: {
+          area: this.select3
+        }
       }).then(response => {
         console.log("res", response);
         
@@ -160,7 +165,14 @@ export default {
           curElement.value = element.ke;
           this.ke_options.push(curElement);
         });
-        response.desc[2].forEach(element => {
+      });
+    },
+    getArea() {
+      this.$api({
+        url: "getarea",
+        method: "post",
+      }).then(response => {
+        response.desc.forEach(element => {
           var curElement = {label: '', value: ''};
           curElement.label = element.area;
           curElement.value = element.area;
@@ -178,6 +190,7 @@ export default {
     }
   },
   mounted: function(){
+    this.getArea()
     this.getInfo()
   }
 };
