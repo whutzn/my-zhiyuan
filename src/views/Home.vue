@@ -95,8 +95,8 @@ export default {
       ke_options: [],
       pi_options: [],
       area_options: [],
-      select1: '科类',
-      select2: '批次',
+      select1: '',
+      select2: '',
       select3: '湖北'
     };
   },
@@ -152,7 +152,10 @@ export default {
         }
       }).then(response => {
         console.log("res", response);
-        
+        this.pi_options = [];
+        this.ke_options = [];
+        this.select1 = '';
+        this.select2 = '';
         response.desc[0].forEach(element => {
           var curElement = {label: '', value: ''};
           curElement.label = element.pi;
@@ -172,6 +175,7 @@ export default {
         url: "getarea",
         method: "post",
       }).then(response => {
+        this.area_options = [];
         response.desc.forEach(element => {
           var curElement = {label: '', value: ''};
           curElement.label = element.area;
