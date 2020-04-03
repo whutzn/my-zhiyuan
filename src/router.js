@@ -38,6 +38,11 @@ const router = new Router({
                         }
                     ]
                 },
+                {
+                    path: '/queryResult',
+                    name: 'queryresult',
+                    component: () => import('./views/Home.vue')
+                }
             ]
         },
         {
