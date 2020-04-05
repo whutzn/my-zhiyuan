@@ -4,14 +4,12 @@ import store from "./store";
 
 Vue.use(Router)
 const router = new Router({
-    routes: [
-        {
+    routes: [{
             path: '/',
             name: 'layout',
             redirect: '/home',
             component: () => import('./views/Layout.vue'),
-            children:[
-                {
+            children: [{
                     path: '/home',
                     name: 'home',
                     component: () => import('./views/Home.vue')
@@ -22,11 +20,15 @@ const router = new Router({
                     component: () => import('./views/About.vue')
                 },
                 {
+                    path: '/content/:id',
+                    name: 'content',
+                    component: () => import('./views/Content.vue')
+                },
+                {
                     path: '/product',
                     name: 'product',
                     component: () => import('./views/Product.vue'),
-                    children: [
-                        {
+                    children: [{
                             path: 'list',
                             component: () => import('./views/product/list.vue'),
                             name: 'productList'
@@ -37,11 +39,6 @@ const router = new Router({
                             name: 'productEdit'
                         }
                     ]
-                },
-                {
-                    path: '/queryResult',
-                    name: 'queryresult',
-                    component: () => import('./views/Home.vue')
                 }
             ]
         },
@@ -60,11 +57,14 @@ const router = new Router({
             redirect: '/home'
         }
     ],
-    scrollBehavior (to, from, savedPosition) {
+    scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
             return savedPosition
         } else {
-            return { x: 0, y: 0 }
+            return {
+                x: 0,
+                y: 0
+            }
         }
     }
 })

@@ -7,7 +7,7 @@
 
             <transition name="fade" mode="out-in">
                 <keep-alive>
-                    <router-view/>
+                    <router-view :key="$route.fullPath"/>
                 </keep-alive>
             </transition>
             <Footer/>
