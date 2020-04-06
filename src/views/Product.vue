@@ -8,7 +8,7 @@
           <!-- <router-link to="/product/list">新闻一</router-link>
           <router-link to="/product/edit">新闻二</router-link>-->
           <div class="news_tab">
-            <el-tabs v-model="activeName"  type="card" @tab-click="handleClick">
+            <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
               <el-tab-pane label="普通文理" name="1"></el-tab-pane>
               <el-tab-pane label="技能高考" name="2"></el-tab-pane>
               <el-tab-pane label="高职单招" name="3"></el-tab-pane>
@@ -77,32 +77,54 @@ export default {
     handleClick(tab, event) {
       this.getInfos(this.activeName);
     },
+    timeFormatter(value) {
+      var da = new Date(
+        value
+          .replace("/Date(", "")
+          .replace(")/", "")
+          .split("+")[0]
+      );
+
+      return (
+        da.getFullYear() +
+        "-" +
+        (da.getMonth() + 1) +
+        "-" +
+        da.getDate() +
+        " " +
+        da.getHours() +
+        ":" +
+        da.getMinutes() +
+        ":" +
+        da.getSeconds()
+      );
+    },
     getInfos(type) {
-        this.$api({
+      this.$api({
         url: "getinfos",
         method: "post",
         data: {
-            type: type
+          type: type
         }
       }).then(response => {
         this.infosList = [];
         response.desc.forEach(element => {
           var curElement = {
-          id: 1,
-          title: "新闻一",
-          publicTime: "1480854958842"
-        };
+            id: 1,
+            title: "新闻一",
+            publicTime: "1480854958842"
+          };
           curElement.id = element.id;
           curElement.title = element.title;
-          curElement.publicTime = element.create_time;
+          curElement.publicTime = this.timeFormatter(element.create_time);
           this.infosList.push(curElement);
         });
       });
     }
   },
   mounted() {
-      this.getInfos(this.activeName);
-  },
+    this.getInfos(this.activeName);
+  }
 };
 </script>
 

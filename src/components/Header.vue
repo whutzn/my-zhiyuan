@@ -11,14 +11,14 @@
                     <router-link :to="item.route" >{{ $t(item.title) }}</router-link>
                 </div>
             </div>
-            <div class="menu-login-box flex">
+            <!-- <div class="menu-login-box flex">
                 <div class="button-group-item">
                     <router-link to="/login" class="button button-link">{{$t('menu.login')}}</router-link>
                 </div>
                 <div class="button-group-item">
                     <router-link to="/register" class="button button-link">{{$t('menu.register')}}</router-link>
                 </div>
-            </div>
+            </div> -->
             <!-- <div class="language">
                 <el-dropdown trigger="click" class="international" @command="handleSetLanguage">
                     <div>选择语言</div>
