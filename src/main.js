@@ -13,7 +13,10 @@ import 'element-ui/lib/theme-chalk/index.css';
 import "./assets/css/main.less";
 import i18n from './lang'
 
+import global from "./global.js";
+
 Vue.prototype.$api = Api;
+Vue.prototype.$global_msg = global;
 
 Vue.prototype.$ELEMENT = { size: (localStorage.getItem('size') || 'medium'), i18n: (key, value) => i18n.t(key, value) };
 

@@ -1,17 +1,6 @@
 <template>
   <div class="wrapper-main">
-  <div class="wrapper-top">
-    <div class="banner-box">
-      <el-carousel height="500px">
-        <el-carousel-item>
-          <div class="banner-item one"></div>
-        </el-carousel-item>
-        <el-carousel-item>
-          <div class="banner-item two"></div>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
-
+    <div class="banner-box"></div>
     <div class="search-box">
       <h2 class="title">志愿查询</h2>
       <div class="search-wrapper">
@@ -51,28 +40,29 @@
           <el-button @click="toQuery" slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </div>
-    </div>
-    </div>
-    <div class="wrapper-center">
-      <div class="center-info">
-         <Product :msg="msg"></Product>
+      <div class="wrapper">
+        <div class="card" v-for="post in filteredList">
+          <a v-bind:href="post.link" target="_blank">
+            <img v-bind:src="post.img" />
+            <small>{{ post.author }}</small>
+            {{ post.title }}
+          </a>
+        </div>
       </div>
-      <div class="center-about">
-        <h1>关于我们</h1>
-        <el-button type="primary" @click.native="gotoAbout(1)">公司简介</el-button>
-        <el-button type="primary" @click.native="gotoAbout(2)">企业文化</el-button>
-        <el-button type="primary" @click.native="gotoAbout(3)">价值观</el-button>
-      </div>
+      <el-pagination
+        @current-change="handleCurrentChange"
+        background
+        layout="prev, pager, next"
+        :total="parseInt(totalPage)"
+      ></el-pagination>
     </div>
-
     <BackTop />
   </div>
 </template>
 
 <script>
-import BackTop from "@/components/BackTop";
-import Product from "./Product";
-import {Notification} from 'element-ui';
+import BackTop from "@/components/BackTop.vue";
+
 class Post {
   constructor(title, link, author, img) {
     this.title = title;
@@ -81,13 +71,13 @@ class Post {
     this.img = img;
   }
 }
-
 export default {
-  components: { BackTop,Product },
-  name: "home",
+  name: "queryInfo",
+  components: {
+    BackTop
+  },
   data() {
     return {
-      msg: 1,
       keyword: "",
       select: "",
       postList: [
@@ -114,7 +104,7 @@ export default {
       select2: '',
       select3: '',
       select4: ''
-    };
+    }
   },
   methods: {
     toQuery() {
@@ -141,16 +131,17 @@ export default {
       }).then(response => {
         // console.log("res", response);
         this.postList = [];
-        this.totalPage = Math.ceil(response.desc[1][0].total / 10);
-        this.$global_msg.queryResult = response.desc;
+        this.totalPage = parseInt(Math.ceil(response.desc[1][0].total));
+        console.log('total', this.totalPage )
+        this.$global_msg.queryResult = response.desc[0]
         console.log(this.$global_msg.queryResult);
-        this.$router.push({name:'queryInfo'})
         response.desc[0].forEach(element => {
+          let curname = element.names.split(',');
           this.postList.push(
             new Post(
               element.school || "",
               "http://feathersjs.com/",
-              element.major_name,
+              curname[0] + "等"+ curname.length + "个专业",
               "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
             )
           );
@@ -203,9 +194,6 @@ export default {
         });
       });
     },
-    gotoAbout(curid) {
-      this.$router.push({name:'about', params: {id: curid}})
-    }
   },
   computed: {
     filteredList() {
@@ -217,10 +205,30 @@ export default {
   },
   mounted: function(){
     this.getArea()
+    if(this.$global_msg.queryResult.length > 0){
+      let response = this.$global_msg.queryResult;
+      this.postList = [];
+        this.totalPage = parseInt(Math.ceil(response[1][0].total));
+        console.log('total', this.totalPage )
+        this.$global_msg.queryResult = response[0]
+        console.log(this.$global_msg.queryResult);
+        response[0].forEach(element => {
+          let curname = element.names.split(',');
+          this.postList.push(
+            new Post(
+              element.school || "",
+              "http://feathersjs.com/",
+              curname[0] + "等"+ curname.length + "个专业",
+              "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
+            )
+          );
+        });
+    }
     // this.getInfo()
   }
 };
 </script>
-<style type="text/less" lang="less">
-@import "../assets/css/home.less";
+
+<style scoped type="text/less" lang="less">
+   @import "../assets/css/query.less";
 </style>
