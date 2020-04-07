@@ -3,7 +3,7 @@
     <div class="banner-box"></div>
     <div class="wrapper-about">
       <div class="wrapper">
-        <h1>公司简介</h1>
+        <h1 id="about1">公司简介</h1>
         <div class="about-main">
           <img class="about-pic" src="../assets/img/test.png" />
           <div class="about-text">
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="wrapper">
-        <h1>文化和价值观</h1>
+        <h1 id="about2">企业文化</h1>
         <div class="about-main">
           <img class="about-pic" src="../assets/img/test4.jpeg" />
           <div class="about-text">
@@ -28,7 +28,7 @@
         </div>
       </div>
       <div class="wrapper">
-        <h1>梦想拾代的价值观</h1>
+        <h1 id="about3">梦想拾代的价值观</h1>
         <p>梦想拾代的四个价值观对于我们如何服务用户、经营业务、工作生活和赋能社会扮演着重要的角色，四个价值观为：</p>
         <div class="about-main">
           <img class="about-pic" src="../assets/img/test5.jpg" />
@@ -76,7 +76,22 @@ export default {
   name: "about",
   components: {
     BackTop
-  }
+  },
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+  
+  },
+  mounted() {
+    // this.gotoPosition()
+    let curid = this.$route.params.id;
+    if(curid !== 1) {
+      document.querySelector(`#about${curid}`).scrollIntoView(true);
+    }
+  },
 };
 </script>
 

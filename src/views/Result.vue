@@ -72,7 +72,7 @@ export default {
   },
   created() {},
   mounted() {
-    // console.log('id',this.$route.params.id);
+    console.log('id',this.$route.params.score);
     // this.getInfos(this.$route.params.id);
   }
 };

@@ -54,7 +54,7 @@
                         title: 'menu.product'
                     },
                     {
-                        route: '/about',
+                        route: '/about1',
                         title: 'menu.about'
                     }
                 ]
@@ -76,7 +76,7 @@
 <style scoped type="text/less" lang="less">
     .wrapper-header {
         .header {
-            height: 60px;
+            height: 100px;
             justify-content: space-around;
             align-items: center;
             transition: background 1s ease-out;

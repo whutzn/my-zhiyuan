@@ -1,5 +1,6 @@
 <template>
   <div class="wrapper-main">
+  <div class="wrapper-top">
     <div class="banner-box">
       <el-carousel height="500px">
         <el-carousel-item>
@@ -12,9 +13,9 @@
     </div>
 
     <div class="search-box">
-      
+      <h2 class="title">志愿查询</h2>
       <div class="search-wrapper">
-        <el-select v-model="select3" @change="getInfo" slot="prepend" class="area-select" placeholder="地区">
+        <el-select v-model="select3" @change="getInfo" slot="prepend" class="area-select myselect" placeholder="地区">
             <el-option
               v-for="item in area_options"
               :key="item.value"
@@ -22,8 +23,7 @@
               :value="item.value"
             ></el-option>
           </el-select>
-        <el-input placeholder="请输入分数/排名" v-model="keyword" class="input-with-select">
-          <el-select v-model="select1" slot="prepend" placeholder="科类">
+          <el-select v-model="select1" slot="prepend" class="myselect" placeholder="科类">
             <el-option
               v-for="item in ke_options"
               :key="item.value"
@@ -31,9 +31,18 @@
               :value="item.value"
             ></el-option>
           </el-select>
-          <el-select v-model="select2" slot="prepend" placeholder="批次">
+          <el-select v-model="select2" slot="prepend" class="myselect" placeholder="批次">
             <el-option
               v-for="item in pi_options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        <el-input placeholder="请输入分数/排名" v-model="keyword" class="input-with-select">
+          <el-select v-model="select4" slot="prepend" placeholder="请选择分数/排名">
+            <el-option
+              v-for="item in type_options"
               :key="item.value"
               :label="item.label"
               :value="item.value"
@@ -51,12 +60,24 @@
           </a>
         </div>
       </div>
-      <el-pagination
+      <!-- <el-pagination
         @current-change="handleCurrentChange"
         background
         layout="prev, pager, next"
         :total="totalPage"
-      ></el-pagination>
+      ></el-pagination> -->
+    </div>
+    </div>
+    <div class="wrapper-center">
+      <div class="center-info">
+         <Product :msg="msg"></Product>
+      </div>
+      <div class="center-about">
+        <h1>关于我们</h1>
+        <el-button type="primary" @click.native="gotoAbout(1)">公司简介</el-button>
+        <el-button type="primary" @click.native="gotoAbout(2)">企业文化</el-button>
+        <el-button type="primary" @click.native="gotoAbout(3)">价值观</el-button>
+      </div>
     </div>
 
     <BackTop />
@@ -65,6 +86,7 @@
 
 <script>
 import BackTop from "@/components/BackTop";
+import Product from "./Product";
 import {Notification} from 'element-ui';
 class Post {
   constructor(title, link, author, img) {
@@ -76,28 +98,37 @@ class Post {
 }
 
 export default {
-  components: { BackTop },
+  components: { BackTop,Product },
   name: "home",
   data() {
     return {
+      msg: 1,
       keyword: "",
       select: "",
       postList: [
-        new Post(
-          "Feathers.js",
-          "http://feathersjs.com/",
-          "Chuck",
-          "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
-        )
+        // new Post(
+        //   "Feathers.js",
+        //   "http://feathersjs.com/",
+        //   "Chuck",
+        //   "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
+        // )
       ],
       totalPage: 1,
       curPage: 1,
       ke_options: [],
       pi_options: [],
       area_options: [],
+      type_options: [{
+        label: '分数',
+        value: 1
+      },{
+        label: '排名',
+        value: 2
+      }],
       select1: '',
       select2: '',
-      select3: '湖北'
+      select3: '',
+      select4: ''
     };
   },
   methods: {
@@ -183,6 +214,9 @@ export default {
           this.area_options.push(curElement);
         });
       });
+    },
+    gotoAbout(curid) {
+      this.$router.push({name:'about', params: {id: curid}})
     }
   },
   computed: {
@@ -195,7 +229,7 @@ export default {
   },
   mounted: function(){
     this.getArea()
-    this.getInfo()
+    // this.getInfo()
   }
 };
 </script>

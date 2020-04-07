@@ -16,14 +16,16 @@
 
     .news_tab {
       text-align: center;
+      display: inline-block;
     }
 
 
     .news_list {
       margin-top: 10px;
       // float: left;
-      position: relative;
       text-align: center;
+      position: relative;
+      text-align: left;
       width: 100%;
       height: 95px;
     }
@@ -31,7 +33,7 @@
     .news_list ul {
       font-size: 15px;
       border-top: 1px solid #ddd;
-      text-align: -webkit-center;
+      text-align: left;
     }
 
     .news_list ul li {
@@ -41,6 +43,12 @@
       // float: left;
       width: 80%;
       border-bottom: 1px dotted #666;
+      .router-link {
+        width: 60%;
+        text-overflow:ellipsis;
+        overflow:hidden;
+        white-space:nowrap;
+      }
     }
 
     .news_list ul li a {
@@ -55,6 +63,7 @@
 
     .news_list ul li span {
       float: right;
+      width: 40%;
       *margin-top: -34px;
     }
   }

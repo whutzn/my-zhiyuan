@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper-main">
-    <div class="banner-box"></div>
+    <div class="banner-box" v-if="msg != 1"></div>
     <div class="wrapper-content">
       <sticky>
         <div style="background: #FAFAFA; ">
@@ -27,7 +27,6 @@
         </div>
       </sticky>
       <keep-alive>
-        <router-view></router-view>
       </keep-alive>
     </div>
   </div>
@@ -38,6 +37,12 @@ import Sticky from "@/components/Sticky";
 export default {
   name: "product",
   components: { Sticky },
+  props: {
+    msg: {
+      type: Number,
+      value: 0
+    }
+  },
   data() {
     return {
       infosList: [
