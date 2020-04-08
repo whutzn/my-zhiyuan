@@ -48,31 +48,55 @@ export default {
           score: "556",
           order: "19988"
         }
-      ]
+      ],
+      select1: '',
+      select2: '',
+      select3: '',
+      school: ''
     };
   },
   methods: {
-    getInfos(id) {
+    queryInfo() {
       this.$api({
-        url: "getinfos",
+        url: "queryschoolinfo",
         method: "post",
         data: {
-          id: id
+          pi: this.select2,
+          ke: this.select1,
+          area: this.select3,
+          school: this.school
         }
       }).then(response => {
-        console.log("res", response);
-        this.content = "";
+        // console.log("res", response);
+        console.log('res1',response);
+        this.curTitle = response.desc[0].school + "查询详情";
+        this.tableData = [];
         response.desc.forEach(element => {
-          console.log("element", element);
-          this.content = element.content;
-          this.curTitle = element.title;
+          var tmpEle = {
+          date: "2018",
+          name: "机械工程",
+          num: "10",
+          score: "552",
+          order: "20002"
+        };
+        tmpEle.date = element.year;
+        tmpEle.name = element.major_name;
+        tmpEle.num = element.num;
+        tmpEle.score = element.score_min;
+        tmpEle.order = element.rank;
+        this.tableData.push(tmpEle);
         });
       });
-    }
+    },
   },
   created() {},
   mounted() {
     console.log(this.$global_msg.queryOptions,this.$global_msg.resultInfo);
+    this.select3 = this.$global_msg.resultInfo.area;
+    this.select1 = this.$global_msg.resultInfo.ke;
+    this.select2 = this.$global_msg.resultInfo.pi;
+    this.school = this.$global_msg.resultInfo.school;
+    this.queryInfo();
   }
 };
 </script>
