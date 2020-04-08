@@ -1,5 +1,9 @@
-let queryResult = [];
+let queryResult = [],
+queryOptions = {},
+resultInfo = {};
 
 export default{
-   queryResult
+   queryResult,
+   queryOptions,
+   resultInfo
 }

@@ -72,8 +72,7 @@ export default {
   },
   created() {},
   mounted() {
-    console.log('id',this.$route.params.score);
-    // this.getInfos(this.$route.params.id);
+    console.log(this.$global_msg.queryOptions,this.$global_msg.resultInfo);
   }
 };
 </script>

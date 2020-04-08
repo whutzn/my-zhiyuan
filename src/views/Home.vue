@@ -40,7 +40,7 @@
             ></el-option>
           </el-select>
         <el-input placeholder="请输入分数/排名" v-model="keyword" class="input-with-select">
-          <el-select v-model="select4" slot="prepend" placeholder="请选择分数/排名">
+          <el-select v-model="select4" @change="handle4" slot="prepend" placeholder="请选择分数/排名">
             <el-option
               v-for="item in type_options"
               :key="item.value"
@@ -89,7 +89,6 @@ export default {
     return {
       msg: 1,
       keyword: "",
-      select: "",
       postList: [
         // new Post(
         //   "Feathers.js",
@@ -98,8 +97,6 @@ export default {
         //   "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
         // )
       ],
-      totalPage: 1,
-      curPage: 1,
       ke_options: [],
       pi_options: [],
       area_options: [],
@@ -113,10 +110,13 @@ export default {
       select1: '',
       select2: '',
       select3: '',
-      select4: ''
+      select4: null
     };
   },
   methods: {
+    handle4(){
+      console.log('select4', this.select4);
+    },
     toQuery() {
       if(this.keyword == '') {
         Notification.error({
@@ -136,14 +136,21 @@ export default {
           area: this.select3,
           score: parseInt(this.keyword),
           pageSize: 10,
-          pageNum: this.curPage,
+          pageNum: 1,
         }
       }).then(response => {
         // console.log("res", response);
         this.postList = [];
-        this.totalPage = Math.ceil(response.desc[1][0].total / 10);
         this.$global_msg.queryResult = response.desc;
         console.log(this.$global_msg.queryResult);
+        this.$global_msg.queryOptions.keyword = this.keyword;
+        this.$global_msg.queryOptions.ke_options = this.ke_options;
+        this.$global_msg.queryOptions.ke_options = this.pi_options;
+        this.$global_msg.queryOptions.ke_options = this.area_options;
+        this.$global_msg.queryOptions.select1 = this.select1;
+        this.$global_msg.queryOptions.select2 = this.select2;
+        this.$global_msg.queryOptions.select3 = this.select3;
+        this.$global_msg.queryOptions.select4 = this.select4;
         this.$router.push({name:'queryInfo'})
         response.desc[0].forEach(element => {
           this.postList.push(
@@ -156,11 +163,6 @@ export default {
           );
         });
       });
-    },
-    handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
-      this.curPage = val;
-      this.toQuery();
     },
     getInfo() {
       this.$api({

@@ -87,9 +87,15 @@ export default {
   },
   mounted() {
     // this.gotoPosition()
-    let curid = this.$route.params.id;
+    let curid = parseInt(this.$route.params.id);
+    console.log('cid', curid);
     if(curid !== 1) {
       document.querySelector(`#about${curid}`).scrollIntoView(true);
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.$router.go(0);
     }
   },
 };

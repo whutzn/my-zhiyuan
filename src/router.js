@@ -30,7 +30,7 @@ const router = new Router({
                     component: () => import('./views/queryInfo.vue')
                 },
                 {
-                    path: '/result/:score',
+                    path: '/result:id',
                     name: 'result',
                     component: () => import('./views/Result.vue')
                 },

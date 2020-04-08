@@ -42,10 +42,10 @@
       </div>
       <div class="wrapper">
         <div class="card" v-for="post in filteredList">
-          <a v-bind:href="post.link" target="_blank">
-            <img v-bind:src="post.img" />
-            <small>{{ post.author }}</small>
-            {{ post.title }}
+          <a @click="getResult(post)" >
+            <img src="https://cdn.worldvectorlogo.com/logos/feathersjs.svg" />
+            <small>{{ post.name }}</small>
+            {{ post.school }}
           </a>
         </div>
       </div>
@@ -62,13 +62,16 @@
 
 <script>
 import BackTop from "@/components/BackTop.vue";
+import { Notification } from "element-ui";
+
 
 class Post {
-  constructor(title, link, author, img) {
-    this.title = title;
-    this.link = link;
-    this.author = author;
-    this.img = img;
+  constructor(school, rank, score, school_code, name) {
+    this.school = school;
+    this.rank = rank;
+    this.score = score;
+    this.school_code = school_code;
+    this.name = name
   }
 }
 export default {
@@ -79,15 +82,7 @@ export default {
   data() {
     return {
       keyword: "",
-      select: "",
-      postList: [
-        // new Post(
-        //   "Feathers.js",
-        //   "http://feathersjs.com/",
-        //   "Chuck",
-        //   "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
-        // )
-      ],
+      postList: [],
       totalPage: 1,
       curPage: 1,
       ke_options: [],
@@ -103,7 +98,7 @@ export default {
       select1: '',
       select2: '',
       select3: '',
-      select4: ''
+      select4: null
     }
   },
   methods: {
@@ -140,9 +135,10 @@ export default {
           this.postList.push(
             new Post(
               element.school || "",
-              "http://feathersjs.com/",
-              curname[0] + "等"+ curname.length + "个专业",
-              "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
+              element.rank,
+              element.score_min,
+              element.school_code,
+              curname[0] + "等"+ curname.length + "个专业"   
             )
           );
         });
@@ -194,10 +190,19 @@ export default {
         });
       });
     },
+    getResult(data) {
+      console.log('clickdata',data);
+      data.area = this.select3;
+      data.ke = this.select1;
+      data.pi = this.select2;
+      data.feng = this.keyword;
+      this.$global_msg.resultInfo = data;
+      this.$router.push({path:'/result'+ data.school_code})
+    }
   },
   computed: {
     filteredList() {
-      return this.postList;
+      return this.postList; 
       // return this.postList.filter(post => {
       //   return post.title.toLowerCase().includes(this.keyword.toLowerCase());
       // });
@@ -206,6 +211,15 @@ export default {
   mounted: function(){
     this.getArea()
     if(this.$global_msg.queryResult.length > 0){
+      this.keyword = this.$global_msg.queryOptions.keyword;
+      this.ke_options = this.$global_msg.queryOptions.ke_options;
+      this.pi_options =  this.$global_msg.queryOptions.ke_options;
+      this.area_options = this.$global_msg.queryOptions.ke_options;
+      this.select1 =  this.$global_msg.queryOptions.select1;
+      this.select2 =  this.$global_msg.queryOptions.select2;
+      this.select3 = this.$global_msg.queryOptions.select3;
+      this.select4 = this.$global_msg.queryOptions.select4;
+
       let response = this.$global_msg.queryResult;
       this.postList = [];
         this.totalPage = parseInt(Math.ceil(response[1][0].total));
@@ -217,10 +231,10 @@ export default {
           this.postList.push(
             new Post(
               element.school || "",
-              "http://feathersjs.com/",
-              curname[0] + "等"+ curname.length + "个专业",
-              "https://cdn.worldvectorlogo.com/logos/feathersjs.svg"
-            )
+              element.rank,
+              element.score_min,
+              element.school_code,
+              curname[0] + "等"+ curname.length + "个专业"            )
           );
         });
     }

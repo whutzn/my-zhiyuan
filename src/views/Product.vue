@@ -26,14 +26,14 @@
           </div>
         </div>
       </sticky>
-      <keep-alive>
-      </keep-alive>
+      <keep-alive></keep-alive>
     </div>
   </div>
 </template>
 
 <script>
 import Sticky from "@/components/Sticky";
+
 export default {
   name: "product",
   components: { Sticky },
@@ -83,25 +83,9 @@ export default {
       this.getInfos(this.activeName);
     },
     timeFormatter(value) {
-      var da = new Date(
-        value
-          .replace("/Date(", "")
-          .replace(")/", "")
-          .split("+")[0]
-      );
-
+      var da = new Date(value.replace("/Date(", "").replace(")/", "").split("+")[0]);
       return (
-        da.getFullYear() +
-        "-" +
-        (da.getMonth() + 1) +
-        "-" +
-        da.getDate() +
-        " " +
-        da.getHours() +
-        ":" +
-        da.getMinutes() +
-        ":" +
-        da.getSeconds()
+        da.getFullYear() + "-" + (da.getMonth() + 1) + "-" + da.getDate() +" " +da.getHours() + ":" + da.getMinutes() +":"+da.getSeconds()
       );
     },
     getInfos(type) {
