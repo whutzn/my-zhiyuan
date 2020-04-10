@@ -234,7 +234,7 @@ export default {
               element.rank,
               element.score_min,
               element.school_code,
-              curname[0] + "等"+ curname.length + "个专业"            )
+              curname[0] + "等"+ curname.length + "个专业")
           );
         });
     }
