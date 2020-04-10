@@ -41,7 +41,7 @@
         </el-input>
       </div>
       <div class="wrapper">
-        <div class="card" v-for="post in filteredList">
+        <div class="card" v-for="(post, index) in filteredList" :key="index"> 
           <a @click="getResult(post)" >
             <img src="https://cdn.worldvectorlogo.com/logos/feathersjs.svg" />
             <small>{{ post.name }}</small>
@@ -203,6 +203,7 @@ export default {
   computed: {
     filteredList() {
       return this.postList; 
+
       // return this.postList.filter(post => {
       //   return post.title.toLowerCase().includes(this.keyword.toLowerCase());
       // });
@@ -234,7 +235,7 @@ export default {
               element.rank,
               element.score_min,
               element.school_code,
-              curname[0] + "等"+ curname.length + "个专业"            )
+              curname[0] + "等"+ curname.length + "个专业")
           );
         });
     }
