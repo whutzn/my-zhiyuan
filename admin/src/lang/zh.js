@@ -11,7 +11,7 @@ const zh={
         element:'element',
         iconfont:'iconfont',
         editor:'文本编辑',
-        countTo:'数字滚动',
+        countTo:'内容管理',
         trees:'树形控件',
         treeSelect:'下拉树',
         customTree:'自定义树',

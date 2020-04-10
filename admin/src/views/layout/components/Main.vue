@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-      <tags />
+      <!-- <tags /> -->
       <el-scrollbar wrap-class="scrollbar-wrapper">
         <div class="contents">
           <transition name="fade-transform" mode="out-in">

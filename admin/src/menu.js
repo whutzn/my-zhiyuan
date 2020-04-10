@@ -1,7 +1,12 @@
 //全部菜单
 export const menu = [
   {
-    icon: "el-icon-news",
+    icon: "el-icon-document",
+    index: "countTo",
+    title: "countTo"
+  },
+  {
+    icon: "el-icon-edit",
     index: "editor",
     title: "editor"
   },
