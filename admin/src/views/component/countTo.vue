@@ -6,10 +6,10 @@
         :data="tableData.filter(data => !search || data.name.toLowerCase().includes(search.toLowerCase()))"
         style="width: 100%"
       >
-        <el-table-column label="序号" prop="id"></el-table-column>
-        <el-table-column label="日期" prop="date"></el-table-column>
-        <el-table-column label="标题" prop="name"></el-table-column>
-        <el-table-column label="类型" prop="name"></el-table-column>
+        <el-table-column label="序号" width="60" align="center" prop="id"></el-table-column>
+        <el-table-column label="日期" align="center" prop="date"></el-table-column>
+        <el-table-column label="标题" align="center" prop="name"></el-table-column>
+        <el-table-column label="类型" align="center" prop="name"></el-table-column>
         <el-table-column align="right">
           <template slot="header" slot-scope="scope">
             <el-input v-model="search" size="mini" placeholder="输入关键字搜索" />
