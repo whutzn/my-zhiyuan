@@ -10,6 +10,11 @@ export const menu = [
     index: "editor",
     title: "editor"
   },
+  {
+    icon: "el-icon-upload",
+    index: "customTree",
+    title: "customTree"
+  },
   // {
   //   icon: "el-icon-edit",
   //   index: "icon",

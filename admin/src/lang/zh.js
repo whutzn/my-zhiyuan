@@ -14,7 +14,7 @@ const zh={
         countTo:'内容管理',
         trees:'树形控件',
         treeSelect:'下拉树',
-        customTree:'自定义树',
+        customTree:'文件上传',
         draggable:'拖拽',
         draglist:'拖拽列表',
         dragtable:'拖拽表格',
