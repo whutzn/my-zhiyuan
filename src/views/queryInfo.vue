@@ -196,6 +196,7 @@ export default {
       data.ke = this.select1;
       data.pi = this.select2;
       data.feng = this.keyword;
+      if(data.school_code == "") data.school_code = data.rank;
       this.$global_msg.resultInfo = data;
       this.$router.push({path:'/result'+ data.school_code})
     }
