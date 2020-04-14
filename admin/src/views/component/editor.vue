@@ -62,13 +62,13 @@ export default {
      * @param {Object} file 图片参数
      * @param {Object} Editor 编辑器实例
      */
-    handleImageAdded(file, Editor, cursorLocation,resetUploader) {
+    handleImageAdded(file, Editor, cursorLocation, resetUploader) {
       let formData = new FormData();
       formData.append("image", file);
       //上传图片
       upload(formData)
         .then(res => {
-          let url = "https://api.dreamtime.city/images/"+ res.desc;
+          let url = "https://api.dreamtime.city/images/" + res.desc;
           Editor.insertEmbed(cursorLocation, "image", url);
           resetUploader();
         })
@@ -92,9 +92,9 @@ export default {
           .then(res => {
             console.log(res);
             this.$message("success", res.desc);
-            this.title = '';
-            this.value = '';
-            this.content = '';
+            this.title = "";
+            this.value = "";
+            this.content = "";
           })
           .catch(err => {
             this.$message("error", err);

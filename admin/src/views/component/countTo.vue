@@ -59,10 +59,6 @@ const INFOS_TYPE = [
   {
     label: "艺术统考",
     value: 4
-  },
-  {
-    label: "关于我们",
-    value: 10
   }
 ];
 

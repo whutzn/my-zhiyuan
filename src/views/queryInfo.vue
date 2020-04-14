@@ -43,7 +43,7 @@
       <div class="wrapper">
         <div class="card" v-for="(post, index) in filteredList" :key="index"> 
           <a @click="getResult(post)" >
-            <img src="https://cdn.worldvectorlogo.com/logos/feathersjs.svg" />
+            <img src="https://cdn.worldvectorlogo.com/logos/nanjing-university.svg" />
             <small>{{ post.name }}</small>
             {{ post.school }}
           </a>
